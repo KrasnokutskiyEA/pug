@@ -1,0 +1,23 @@
+//- ***Общая структура основного шаблона***
+
+//- подключаем миксины - дадим наследникам доступ к ним
+include mixins/user
+
+//- разметка шаблона страницы
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title= base.title
+    link(href="../style.css", rel="stylesheet")
+
+  body(class=base.pageClass)
+    //- 1 шаг - подключим шаблон хэдера
+    include includes/header
+
+    //- 2 шаг - сюда вставим наследников от этого шаблона
+    .content-wrapper
+      block content
+
+    //- 3 шаг - подключим шаблон футера
+    include includes/footer

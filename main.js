@@ -3,8 +3,9 @@ const pug = require('pug')
 
 const age = require('./age')
 
-const users = []
+const users = [] // данные юзеров
 
+// 1 шаг - формируем данные юзеров
 fs.readdirSync('users').forEach((filename) => {
   const id = filename.replace('.json', '')
   const userData = JSON.parse(fs.readFileSync('users/' + filename, 'utf-8'))
@@ -12,7 +13,8 @@ fs.readdirSync('users').forEach((filename) => {
   users.push({ ...{ id: id }, ...userData })
 })
 
-function buildUserList () {
+// ф-ия строит страницу списка юзеров
+function buildUsersList () {
   const data = {
     base: {
       title: 'Моя Соцсеть',
@@ -21,12 +23,13 @@ function buildUserList () {
     users: users
   }
 
-  const html = pug.renderFile('layout/index.pug', data)
-  fs.writeFileSync('dist/index.html', html)
+  const html = pug.renderFile('layout/usersList.pug', data)
+  fs.writeFileSync('dist/usersList.html', html)
 }
 
-function buildUsers () {
-  const compileFunc = pug.compileFile('layout/user.pug')
+// ф-ия строит страницу карточки юзера
+function buildUserCard () {
+  const compileFunc = pug.compileFile('layout/userCard.pug')
 
   users.forEach((userData) => {
     const data = {
@@ -43,5 +46,5 @@ function buildUsers () {
   })
 }
 
-buildUserList()
-buildUsers()
+buildUsersList() // 2 шаг - генерируем страницу списка юзеров
+buildUserCard() // 3 шаг - генерируем страницы карточек юзеров
