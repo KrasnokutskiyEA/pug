@@ -1,0 +1,6 @@
+extends base
+
+block content
+    h2 #{user.name} #[span.age(title="Дата рождения: " + user.birth)= calcAge(user.birth)]
+    blockquote= user.slogan
+    p= user.bio
